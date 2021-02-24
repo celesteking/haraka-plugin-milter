@@ -1,0 +1,36 @@
+{
+  "name": "haraka-plugin-milter",
+  "version": "1.0.1",
+  "description": "Haraka milter plugin",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint *.js test/**/*.js",
+    "lintfix": "./node_modules/.bin/eslint --fix *.js test/**/*.js",
+    "test": "node node_modules/.bin/_mocha 'test/test:*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haraka/haraka-plugin-milter.git"
+  },
+  "keywords": [
+    "haraka",
+    "plugin",
+    "milter"
+  ],
+  "author": "Yuri Arabadji <yuri@fused.internal>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haraka/haraka-plugin-milter/issues"
+  },
+  "homepage": "https://github.com/haraka/haraka-plugin-milter#readme",
+  "devDependencies": {
+    "eslint": ">=4.1.1",
+    "eslint-plugin-haraka": ">=1.0.6",
+    "haraka-test-fixtures": ">=1.0.20",
+    "mocha": ">=3.4.2",
+    "why-is-node-running": "^2.2.0"
+  },
+  "dependencies": {
+    "wtfnode": "^0.8.4"
+  }
+}

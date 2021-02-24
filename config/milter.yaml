@@ -1,0 +1,90 @@
+# hooks prio
+prio: 0
+
+# shall defer milter commands:
+#   till transaction is in place (e.g., to know auth has been completed). milters invoked in parallel.
+#   till end of body, thus invoking milters serially (to have inserted headers/modified body ready from previous milter)
+# "eob" or "transaction" or commented out
+defer_till: eob
+
+#milters:
+#  milter number one:
+#    # skip when following conditions are true
+#    skip:
+#      authenticated: true
+#      #private_ip: false
+#      #local_ip: false
+#      #relay: false
+#
+#    # milter conn info
+#    connection:
+#      host: localhost
+#      port: 7777
+#      # socket: /tmp/blah.sock
+#
+#    # milter action reaction
+#    handlers:
+#      # handler: haraka constant
+#      #   by default: CONT
+#      reject: DENYDISCONNECT
+#      quarantine: CONT
+#      tempfail: DENYSOFTDISCONNECT
+#      replycode:
+#        550: DENYDISCONNECT
+#        420: DENYSOFTDISCONNECT
+#
+#    # actions flags
+#    negotiate_actions:
+#      - ADDHDRS
+#      - CHGHDRS
+#      - QUARANTINE
+#      #
+#      #     NONE:			0x00000000,	// no flags
+#      # 	ADDHDRS:		0x00000001,	// filter may add headers
+#      # 	CHGBODY:		0x00000002,	// filter may replace body
+#      # 	MODBODY:		0x00000002,	// backwards compatible
+#      # 	ADDRCPT:		0x00000004,	// filter may add recipients
+#      # 	DELRCPT:		0x00000008,	// filter may delete recipients
+#      # 	CHGHDRS:		0x00000010,	// filter may change/delete headers
+#      # 	QUARANTINE:		0x00000020,	// filter may quarantine envelope
+#      # 	CHGFROM:		0x00000040, /* filter may change "from" (envelope sender) */
+#      #     /* NEW PROTO */
+#      # 	ADDRCPT_PAR:	0x00000080,	/* add recipients incl. args */
+#      #
+#      # 	SETSYMLIST:		0x00000100 /* filter can send set of symbols (macros) that it wants */
+#
+#    # proto flags
+#    negotiate_protocol_features:
+#      - NOHELO
+#      #
+#      #     NOCONNECT:		0x00000001,	// MTA should not send connect info
+#      # 	NOHELO:			0x00000002,	// MTA should not send HELO info
+#      # 	NOMAIL:			0x00000004,	// MTA should not send MAIL info
+#      # 	NORCPT:			0x00000008,	// MTA should not send RCPT info
+#      # 	NOBODY:			0x00000010,	// MTA should not send body
+#      # 	NOHDRS:			0x00000020,	// MTA should not send headers
+#      # 	NOEOH:			0x00000040,	// MTA should not send EOH
+#      #     /* NEW PROTO */
+#      # 	NR_HDR:			0x00000080,	// No reply for headers
+#      # 	NOHREPL:		0x00000080,	// No reply for headers
+#      # 	NOUNKNOWN:		0x00000100, // MTA should not send unknown commands
+#      # 	NODATA:			0x00000200,	// MTA should not send DATA
+#      # 	SKIP:			0x00000400,	// MTA understands SMFIS.SKIP
+#      # 	RCPT_REJ:		0x00000800, // MTA should also send rejected RCPTs
+#      # 	NR_CONN:		0x00001000,	// No reply for connect
+#      # 	NR_HELO:		0x00002000,	// No reply for HELO
+#      # 	NR_MAIL:		0x00004000,	// No reply for MAIL
+#      # 	NR_RCPT:		0x00008000,	// No reply for RCPT
+#      # 	NR_DATA:		0x00010000,	// No reply for DATA
+#      # 	NR_UNKN:		0x00020000,	// No reply for UNKN
+#      # 	NR_EOH:			0x00040000,	// No reply for eoh
+#      # 	NR_BODY:		0x00080000,	// No reply for body chunk
+#      # 	HDR_LEADSPC:	0x00100000,	// header value leading space
+#      # 	MDS_256K:		0x10000000,	// MILTER_MAX_DATA_SIZE=256K
+#      # 	MDS_1M:			0x20000000	// MILTER_MAX_DATA_SIZE=1M
+
+#  milter number two:
+#    connection:
+#      host: localhost
+#      port: 7778
+#      socket: /tmp/blah2.sock
