@@ -5,7 +5,7 @@ For all your Milter needs!
 
 **WARNING**: BETA quality.
 
-**WARNING**: requires patching Haraka base files.
+**WARNING**: Haraka version >= 2.8.28 required.
 
 ## INSTALL
 
