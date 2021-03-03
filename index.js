@@ -194,7 +194,7 @@ exports._wrap_milter_command = async function (cb, connection, mcfg, cmd_name, p
     if (action.code !== constants.cont) {
         this.mlog(mcfg, connection, `skipping further milters processing because action != CONT`)
         // (trans || connection).results.add(this, {fail: `${mcfg.name}(${cmd_name}:${action.msg})`})
-        cb(action.code, action.msg)
+        cb(action.code, `${action.msg} (${connection.transaction ? connection.transaction.uuid : connection.uuid})`)
         return true // ask to stop processing
     }
 }
