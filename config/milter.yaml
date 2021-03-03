@@ -82,6 +82,12 @@ defer_till: eob
 #      # 	HDR_LEADSPC:	0x00100000,	// header value leading space
 #      # 	MDS_256K:		0x10000000,	// MILTER_MAX_DATA_SIZE=256K
 #      # 	MDS_1M:			0x20000000	// MILTER_MAX_DATA_SIZE=1M
+#
+#    timeouts:
+#      connection: 1111
+#      command: 5555
+#      body: 12222
+#      eob: 14444
 
 #  milter number two:
 #    connection:
