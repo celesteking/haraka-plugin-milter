@@ -19,7 +19,7 @@ const HK_MILTER_CMD_MAP = {
     rcpt: 'RCPT',
     data:   'DATA',
     // data_post: 'HEADER',
-    disconnect: 'QUIT'
+    // disconnect: 'QUIT'
 }
 
 exports.register = function () {
@@ -33,6 +33,7 @@ exports.register = function () {
     }
 
     this.register_hook('data_post',     'onDataPost',   this.cfg.hooks_prio)
+    this.register_hook('disconnect',    'onDisconnect', this.cfg.hooks_prio)
 }
 
 exports.load_config = function () {
@@ -165,6 +166,18 @@ exports.onDataPost = async function (next, connection) {
     }
 }
 
+exports.onDisconnect = async function (next, connection) {
+    try {
+        const cmd_name = 'QUIT'
+        await this._for_each_milter_with_skipper(async (mcfg) => {
+            /*await */ connection.notes.cmilters[mcfg.name].phase(cmd_name) // don't wait for connection teardown
+        }, connection, cmd_name)
+    } catch (exc) {
+        connection.logerror(this, exc)
+    }
+    next()
+}
+
 // iterate through each milter config and invoke skipper code and wrap cb code
 // @param   {Function}  cb  Called with `mcfg` argument. On `true` return, return out with `true`.
 // @returns {Boolean}   true: stop further processing
@@ -194,7 +207,9 @@ exports._wrap_milter_command = async function (cb, connection, mcfg, cmd_name, p
     if (action.code !== constants.cont) {
         this.mlog(mcfg, connection, `skipping further milters processing because action != CONT`)
         // (trans || connection).results.add(this, {fail: `${mcfg.name}(${cmd_name}:${action.msg})`})
-        cb(action.code, `${action.msg} (${connection.transaction ? connection.transaction.uuid : connection.uuid})`)
+        const msg = `${action.msg || `${action.milter_reply.code} action requested by milter ${mcfg.name}`} ` +
+            `(${connection.transaction ? connection.transaction.uuid : connection.uuid})`
+        cb(action.code, msg)
         return true // ask to stop processing
     }
 }
